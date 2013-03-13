@@ -1,0 +1,22 @@
+<%
+
+ssh_port = 22
+ssh_root = "yes"
+if @hostname == 'mamasource'
+    ssh_port = 27182
+    ssh_root = "no"
+end
+
+%>
+Port <%= ssh_port %>
+SyslogFacility AUTHPRIV
+PermitRootLogin <%= ssh_root %>
+PubkeyAuthentication yes
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+UsePAM yes
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES 
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT 
+AcceptEnv LC_IDENTIFICATION LC_ALL
+X11Forwarding no
+Subsystem sftp /usr/libexec/openssh/sftp-server

@@ -1,0 +1,57 @@
+<%
+
+if [ 'dev', 'stg' ].include? environment
+    $mageroot = scope.function_regsubst(servername, 'api-', '')
+else
+    $mageroot = 'www.totsy.com'
+end
+
+[ 'insecure', 'secure' ].each do |securestate| -%>
+
+###############################################################################
+#
+# <%= servername %> (<%= securestate %>)
+#
+###############################################################################
+
+server {
+	listen <%= ('secure' == securestate) ? 443 : 80 %>;
+	server_name <%= servername %>;
+
+<% if ('secure' == securestate) -%>
+	#ssl on;
+        #ssl_certificate     /etc/nginx/totsy_certs/totsy.com.crt;
+        #ssl_certificate_key /etc/nginx/totsy_certs/totsy.com.key;
+<% end -%>
+
+	root /var/www/<%= servername %>/current/web;
+	index index.php index.html;
+	fastcgi_index index.php;
+
+	access_log /var/log/nginx/<%= servername %>-access.log common;
+	error_log  /var/log/nginx/<%= servername %>-errors.log warn;
+
+	location /doc {
+                root /var/www/<%= servername %>/current;
+                allow all;
+        }
+
+	location / {
+		include /etc/nginx/fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+        	fastcgi_param SCRIPT_NAME /index.php;
+		fastcgi_param API_ENV <%= environment %>;
+		fastcgi_param MAGENTO_ROOT /var/www/<%= $mageroot %>/current;
+
+<% if ('secure' == securestate) -%>
+		fastcgi_param HTTPS on;
+<% end -%>
+
+        	# rewrite - if file not found, pass it to the backend
+        	if (!-f $request_filename) {
+			fastcgi_pass 127.0.0.1:9000;
+            		break;
+        	}
+	}
+}
+<% end -%>

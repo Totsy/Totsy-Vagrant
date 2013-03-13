@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# stolen from template file
+if git rev-parse --verify HEAD
+then
+    against=HEAD
+else
+    # Initial commit: diff against an empty tree object
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+
+VIOLATION_COUNT=`git diff-index --name-only $against | xargs egrep '(debug\(|var_dump\(|print_r\(|console.log)' | wc -l`
+
+if [ $VIOLATION_COUNT -gt 0 ]
+then
+	echo "Debugging code found in files to be committed!"
+	git diff-index --name-only $against | xargs egrep --color '(debug\(|var_dump\(|print_r\(|console.log)'
+	exit 1
+fi
+
+exit 0
+

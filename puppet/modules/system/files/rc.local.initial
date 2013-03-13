@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+set -e
+
+touch /var/lock/subsys/local
+
+if [ "$(route | grep default | awk '{print $NF}')" != "eth1" ]
+then
+    FILE=/etc/rackspace/datacenter
+    if [ ! -f $FILE  ] || ! grep -q ORD $FILE
+    then
+        install -dv /etc/rackspace
+        echo ORD >$FILE
+    fi
+    cd /usr/lib/rackspace
+    sh ./rackconnect.sh
+    echo '10.181.134.43 puppet.totsy.com puppet' >>/etc/hosts
+    puppet agent --genconfig | sed -e 's@server = puppet@&.totsy.com@' -e 's@# server =@server =@' -e 's@factdest =@#&@' -e 's@#.*listen =.*@listen = true@'  >/etc/puppet/puppet.conf
+    puppet agent --server puppet.totsy.com --waitforcert 20 --test &>/dev/null
+    IP=$(ifconfig eth1 | grep "inet addr" | cut -d: -f2 | cut -d' ' -f1)
+    echo -e "Subject: New Cloud Server\nTo: infrastructure@totsy.com\n\nIP = $IP\n" | sendmail infrastructure@totsy.com
+fi

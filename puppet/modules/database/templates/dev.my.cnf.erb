@@ -1,0 +1,37 @@
+[mysqld]
+#server-id=3
+#skip-slave-start
+#relay-log=mysqld-relay-bin
+#innodb_buffer_pool_size=25769803776
+slow_query_log=1
+slow_query_log_file=/var/log/mysql-slow-query.log
+innodb_lock_wait_timeout=300
+#innodb_file_per_table
+###### added by Omar to correct issues with indexing #####
+max_allowed_packet=64M
+###### this was added by Pierre #############
+innodb_flush_method=ALL_O_DIRECT
+innodb_thread_concurrency=8 
+#innodb_force_recovery = 4
+#innodb_purge_thread=0
+
+
+# Added by Jeremy 2012-07-18, as per Percona's recommendation
+innodb_log_file_size=128M
+#binlog-format=ROW
+#skip_name_resolve=on
+#innodb_lazy_drop_table=1
+#binlog_cache_size=2M
+#query_cache_type=0
+innodb_file_format=Barracuda
+#max_heap_table_size = 350M
+#tmp_table_size = 350M
+
+# Settings user and group are ignored when systemd is used (fedora >= 15).
+# If you need to run mysqld under different user or group,
+# customize your systemd unit file for mysqld according to the
+# instructions in http://fedoraproject.org/wiki/Systemd
+user=mysql
+
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock

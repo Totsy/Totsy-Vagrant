@@ -1,0 +1,28 @@
+127.0.0.1     	localhost.localdomain	localhost
+10.181.134.43   puppet.totsy.com	puppet
+172.16.100.36   db1-dc1.totsy.com
+172.16.100.37   db2-dc1.totsy.com
+172.16.100.38   db3-dc1.totsy.com
+10.181.133.10   db4-dc1.totsy.com
+10.181.132.223  dev1-dc1.totsy.com
+10.181.128.107  lb1-dc1.totsy.com
+10.181.128.10	nginx-admin.totsy.com
+10.181.129.19   nginx1-dc1.totsystaging.com
+10.181.130.9    nginx2-dc1.totsystaging.com
+10.181.130.57   nginx3-dc1.totsystaging.com
+10.181.130.179  splunkface.totsy.com
+10.181.134.19   web1-dc1.totsy.com
+10.181.128.159  web2-dc1.totsy.com
+10.181.128.186  web3-dc1.totsy.com
+10.181.128.201  web4-dc1.totsy.com
+10.181.128.228  web5-dc1.totsy.com
+10.181.128.245  web6-dc1.totsy.com
+10.181.128.255  web7-dc1.totsy.com
+10.181.129.4    web8-dc1.totsy.com
+10.181.128.4    web9-dc1.totsy.com
+10.181.128.5    web10-dc1.totsy.com
+10.181.128.12   web11-dc1.totsy.com
+10.181.128.14   web12-dc1.totsy.com
+10.181.128.24   web13-dc1.totsy.com
+10.181.128.25   web14-dc1.totsy.com
+10.181.130.31   nagios.totsy.com
