@@ -27,7 +27,7 @@ To speed up the startup process use
 
 after the first run. It just starts the virtual machine without provisioning of the recipes.
 
-**Clearing out an instance **
+**Clearing out an instance**
 
 To get a fresh instance, simply run
 
