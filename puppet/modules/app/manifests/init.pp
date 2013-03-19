@@ -183,7 +183,7 @@ class app {
     require => Package[tar]
   }
   
-  exec { " git reset --hard HEAD":
+  exec { "git reset --hard HEAD":
     path     => "/usr/bin:/bin",
     cwd      => "/vagrant-www/Totsy-Magento",
     require  => [Package[git],Exec["extract magento"]]
