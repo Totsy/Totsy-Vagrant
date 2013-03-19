@@ -21,8 +21,6 @@ Hints
 
 To speed up the startup process use
 
-.. code-block:: sh
-
     $ vagrant up --no-provision
 
 after the first run. It just starts the virtual machine without provisioning of the recipes.
@@ -31,12 +29,8 @@ after the first run. It just starts the virtual machine without provisioning of 
 
 To get a fresh instance, simply run
 
-.. code-block:: sh
-
     $ vagrant destroy
 
 then
-
-.. code-block:: sh
 
     $ vagrant up
