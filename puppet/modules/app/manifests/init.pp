@@ -113,7 +113,7 @@ class app {
     require => File[$sitedirs]
   }
 
-  file { '/vagrant/www/Totsy-Magento/app/etc/local.xml':
+  file { '/vagrant-www/Totsy-Magento/app/etc/local.xml':
     content => template('app/local.xml.erb'),
     owner   => 'nobody',
     group   => 'nobody',
@@ -170,22 +170,22 @@ class app {
     path    => "/usr/bin:/bin"
   }
 
-  exec { "tar -xzf /vagrant/www/media.tgz -C /vagrant/www/Totsy-Magento":
-    creates => "/vagrant/www/Totsy-Magento/media",
+  exec { "tar -xzf /vagrant-www/media.tgz -C /vagrant-www/Totsy-Magento":
+    creates => "/vagrant-www/Totsy-Magento/media",
     path    => "/usr/bin:/bin",
     require => Package[tar] 
   }
 
   exec { "extract magento":
-    command => "tar -xjf /usr/share/magento/magento-enterprise-1.11.1.tar.bz2 -C /vagrant/www/Totsy-Magento --strip-components=1",
-    creates => "/vagrant/www/Totsy-Magento/downloader",
+    command => "tar -xjf /usr/share/magento/magento-enterprise-1.11.1.tar.bz2 -C /vagrant-www/Totsy-Magento --strip-components=1",
+    creates => "/vagrant-www/Totsy-Magento/downloader",
     path    => "/usr/bin:/bin",
     require => Package[tar]
   }
   
   exec { " git reset --hard HEAD":
     path     => "/usr/bin:/bin",
-    cwd      => "/vagrant/www/Totsy-Magento",
+    cwd      => "/vagrant-www/Totsy-Magento",
     require  => [Package[git],Exec["extract magento"]]
   }
 }

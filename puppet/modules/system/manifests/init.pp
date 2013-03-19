@@ -109,7 +109,7 @@ class system {
   package { 'ruby-shadow': ensure => latest }
 
   yumrepo { 'totsyrepo':
-    baseurl  => 'http://38.76.8.20:18724/6/x86_64/',
+    baseurl  => 'http://repo.totsy.com/6/x86_64/',
     name     => 'totsy',
     descr    => 'Totsy Repository',
     enabled  => 1,

@@ -5,7 +5,7 @@
 include system, group 
 include web, app, cache, database
 
-class { 'iptables': allowports => [ 80, 443, 3306 ] }
+class { 'iptables': allowports => [ '80', '443', '3306' ] }
 
 ###########################################################
 # Specific node configuration

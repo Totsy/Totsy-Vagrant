@@ -1,3 +1,6 @@
 [submodule "www/Totsy-Magento"]
 	path = www/Totsy-Magento
 	url = git@github.com:Totsy/Totsy-Magento.git
+[submodule "vagrant-hostmaster"]
+	path = vagrant-hostmaster
+	url = git://github.com/mosaicxm/vagrant-hostmaster.git

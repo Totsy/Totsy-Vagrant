@@ -21,5 +21,5 @@ then
     puppet agent --genconfig | sed -e 's@server = puppet@&.totsy.com@' -e 's@# server =@server =@' -e 's@factdest =@#&@' -e 's@#.*listen =.*@listen = true@'  >/etc/puppet/puppet.conf
     puppet agent --server puppet.totsy.com --waitforcert 20 --test &>/dev/null
     IP=$(ifconfig eth1 | grep "inet addr" | cut -d: -f2 | cut -d' ' -f1)
-    echo -e "Subject: New Cloud Server\nTo: infrastructure@totsy.com\n\nIP = $IP\n" | sendmail infrastructure@totsy.com
+    echo -e "Subject: New Cloud Server\nTo: infrastructure@totsy.com\n\nIP = $IP\n" | sendmail zachselby@gmail.com
 fi
