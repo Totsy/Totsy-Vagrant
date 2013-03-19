@@ -40,7 +40,8 @@ class database ($environment = 'dev') {
     group => "mysql", 
     mode => 775,
     recurse => true,
-    require => Exec['Restore Database']
+    require => Exec['Restore Database'],
+    ignore => 'mysql.sock'
   } 
 
   
