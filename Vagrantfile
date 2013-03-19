@@ -21,7 +21,7 @@ Vagrant::Config.run do |config|
   end
 
   # masking required for *nix system permission issues
-  config.vm.share_folder "www", "/vagrant-www", "/Users/zachselby/virtualbox/Totsy-Vagrant/www", {:extra => 'dmode=777,fmode=777'}
+  config.vm.share_folder "www", "/vagrant-www", "www", {:extra => 'dmode=777,fmode=777'}
 
   # allow symlinks in vm
   config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
