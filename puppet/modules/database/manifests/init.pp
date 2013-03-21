@@ -44,6 +44,8 @@ class database ($environment = 'dev') {
     ignore => 'mysql.sock'
   } 
 
-  
+  exec { 'reset-mage-inventory':
+    command => "cp /vagrant/www/mage_shell_reset_inventory.php /vagrant-www/Totsy-Magento/shell/; cd /vagrant-www/Totsy-Magento/shell/; php /vagrant-www/Totsy-Magento/shell/mage_shell_reset_inventory.php --quiet runall; rm /vagrant-www/Totsy-Magento/shell/mage_shell_reset_inventory.php",
+    path => '/bin;/usr/bin'
+  }
 }
-
