@@ -21,7 +21,7 @@ server {
 	access_log /var/log/nginx/<%= servername %>-access.log;
 	error_log  /var/log/nginx/<%= servername %>-errors.log warn;
 
-#	rewrite ^/skin/m/([0-9]+)(/.*.(js|css))$ /lib/minify/m.php?f=$2&d=$1 last;
+	rewrite ^/skin/m/([0-9]+)(/.*.(js|css))$ /lib/minify/m.php?f=$2&d=$1 last;
 
         rewrite ^/invite/([^/\.]+)/$  https://<%= servername %>/invitation/customer_account/genericcreate/invitation/$1 permanent;
 
@@ -33,10 +33,16 @@ server {
 		try_files $uri =404;
 	}
 
-	# Protect internal resources
-	location ~ (/(app/|lib/|var/|shell/|includes/|tmp/)) {
-                deny all;
-        }
+    # Protect internal resources
+        location /app/                { deny all; }
+        location /includes/           { deny all; }
+        location /lib/                { deny all; }
+        location /lib/minify/         { allow all; }  ## Deny is applied after rewrites so must specifically allow minify
+        location /media/downloadable/ { deny all; }
+        location /pkginfo/            { deny all; }
+        location /report/config.xml   { deny all; }
+        location /var/                { deny all; }
+        location /tmp/                { deny all; }
 
 	location ~ \.php$ {
 		fastcgi_index index.php;
