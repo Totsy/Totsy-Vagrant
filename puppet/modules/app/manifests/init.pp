@@ -45,7 +45,7 @@ class app {
     'php-pecl-apc':       ensure => '3.1.9-3.el6.art';
     'php-pecl-memcache':  ensure => absent;
     'php-ioncube-loader': ensure => '4.0.5-1.el6.art';
-    'php-pecl-igbinary':  ensure => '1.1.1-3.el6.remi';
+    'php-pecl-igbinary':  ensure => '1.1.1-3.el6.remi',require => Package['php-common'];
     'php-redis':          ensure => '2.2.2-5.git6f7087f.el6';
 
     'nfs-utils': ensure => latest;
