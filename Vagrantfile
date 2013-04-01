@@ -6,7 +6,7 @@ Vagrant::Config.run do |config|
 
   # VM is headless. Uncomment for dispaly.
   # config.vm.boot_mode = :gui
-  config.vm.customize ["modifyvm", :id, "--memory", 1024]
+  config.vm.customize ["modifyvm", :id, "--memory", 6144]
 
   #config.vm.host_name = "www.totsy.local"
   config.vm.network :hostonly, "192.168.33.10"

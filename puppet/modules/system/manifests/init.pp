@@ -1,6 +1,14 @@
 # Generic system properties for all nodes
 class system {
 
+  file { '/etc/yum.conf':
+    source => 'puppet:///modules/system/yum.conf',
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
   file { '/etc/bashrc':
     source  => 'puppet:///modules/system/bashrc',
     ensure  => 'present',
@@ -39,6 +47,9 @@ class system {
 
   # Some core services
 
+  package { 'rsyslog':
+    ensure => '5.8.10-6.el6'
+  }
   file { "/etc/rsyslog.conf":
     content => template("system/rsyslog.conf.erb"),
     ensure  => present,

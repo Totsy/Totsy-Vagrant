@@ -11,7 +11,7 @@ define app::vhost ($site = $title, $options = {}, $port = 80) {
   }
 
   if $site == 'totsy' {
-    if 'disablecron' in $options or ($environment == 'production' and $hostname != 'web7-dc0') {
+    if 'disablecron' in $options or $environment == 'dev' or ($environment == 'production' and $hostname != 'web7-dc0') {
       $cronensure = 'absent'
     } else {
       $cronensure = 'present'

@@ -1,6 +1,6 @@
 map $http_user_agent $magecode {
-	default				"";
-	"~ (iPhone|Android|BlackBerry)"	mobile;
+    default             "";
+    "~ (iPhone|Android|BlackBerry)" mobile;
 }
 
 
@@ -11,62 +11,72 @@ map $http_user_agent $magecode {
 ###############################################################################
 
 server {
-	listen 80;
-	server_name www.totsy.local;
+    listen 80;
+    server_name www.totsy.local;
 
-	root /vagrant-www/Totsy-Magento;
-	index index.php index.html;
-	fastcgi_index index.php;
+    root /vagrant-www/Totsy-Magento;
+    index index.php index.html;
+    fastcgi_index index.php;
 
-	access_log /var/log/nginx/<%= servername %>-access.log;
-	error_log  /var/log/nginx/<%= servername %>-errors.log warn;
+    access_log /var/log/nginx/<%= servername %>-access.log;
+    error_log  /var/log/nginx/<%= servername %>-errors.log warn;
 
-	rewrite ^/skin/m/([0-9]+)(/.*.(js|css))$ /lib/minify/m.php?f=$2&d=$1 last;
+    rewrite ^/skin/m/([0-9]+)(/.*.(js|css))$ /lib/minify/m.php?f=$2&d=$1 last;
 
         rewrite ^/invite/([^/\.]+)/$  https://<%= servername %>/invitation/customer_account/genericcreate/invitation/$1 permanent;
 
-	# Try static files first
-	location ~ .(css|js|gif|jpg|jpeg|png)$ {
-		expires max;
-		add_header Cache-Control max-age=3600;
-		add_header Last-Modified "";
-		try_files $uri =404;
-	}
+    # Try static files first
+    location ~ .(css|js|gif|jpg|jpeg|png)$ {
+        expires max;
+        add_header Cache-Control max-age=3600;
+        add_header Last-Modified "";
+        try_files $uri =404;
+    }
 
     # Protect internal resources
-        location /app/                { deny all; }
-        location /includes/           { deny all; }
-        location /lib/                { deny all; }
-        location /lib/minify/         { allow all; }  ## Deny is applied after rewrites so must specifically allow minify
-        location /media/downloadable/ { deny all; }
-        location /pkginfo/            { deny all; }
-        location /report/config.xml   { deny all; }
-        location /var/                { deny all; }
-        location /tmp/                { deny all; }
+    location /app/                { deny all; }
+    location /includes/           { deny all; }
+    location /lib/                { deny all; }
+    location /lib/minify/         { allow all; }  ## Deny is applied after rewrites so must specifically allow minify
+    location /media/downloadable/ { deny all; }
+    location /pkginfo/            { deny all; }
+    location /report/config.xml   { deny all; }
+    location /var/                { deny all; }
+    location /tmp/                { deny all; }
 
-	location ~ \.php$ {
-		fastcgi_index index.php;
-		fastcgi_param HTTPS on;
-		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-		include /etc/nginx/fastcgi_params;
+    # Disable access of dot files
+    location ~ /\. {
+        deny all;
+    }
 
-		if (-e $request_filename) {
-			fastcgi_pass 127.0.0.1:9000;
-		}
-	}
+    # Disable cgi-bin
+    location ~ /cgi-bin {
+        deny all;
+    }
 
-	location / {
-		include /etc/nginx/fastcgi_params;
-		fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-        	fastcgi_param SCRIPT_NAME /index.php;
-		fastcgi_param MAGE_RUN_CODE $magecode;
-		fastcgi_param MAGE_IS_DEVELOPER_MODE true;
+    location ~ \.php$ {
+        fastcgi_index index.php;
+        fastcgi_param HTTPS on;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include /etc/nginx/fastcgi_params;
+
+        if (-e $request_filename) {
+            fastcgi_pass 127.0.0.1:9000;
+        }
+    }
+
+    location / {
+        include /etc/nginx/fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+            fastcgi_param SCRIPT_NAME /index.php;
+        fastcgi_param MAGE_RUN_CODE $magecode;
+        fastcgi_param MAGE_IS_DEVELOPER_MODE true;
 
 
-        	# rewrite - if file not found, pass it to the backend
-        	if (!-f $request_filename) {
-			fastcgi_pass 127.0.0.1:9000;
-            		break;
-        	}
-	}
+            # rewrite - if file not found, pass it to the backend
+            if (!-f $request_filename) {
+            fastcgi_pass 127.0.0.1:9000;
+                    break;
+            }
+    }
 }
