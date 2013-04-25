@@ -4,6 +4,7 @@
 Vagrant::Config.run do |config|
   config.vm.box = "centos"
 
+  config.ssh.timeout = 300
   # VM is headless. Uncomment for dispaly.
   # config.vm.boot_mode = :gui
   config.vm.customize ["modifyvm", :id, "--memory", 6144]
@@ -23,6 +24,10 @@ Vagrant::Config.run do |config|
   # masking required for *nix system permission issues
   config.vm.share_folder "www", "/vagrant-www", "www", {:extra => 'dmode=777,fmode=777'}
 
+
   # allow symlinks in vm
   config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+  
+  # To mirror the vagrant root path
+  config.mirror.vagrant_root "/vagrant-mirror"
 end

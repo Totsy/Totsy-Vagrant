@@ -9,6 +9,7 @@ Installation
 * Clone this repository
 * Install submodules with ```git submodule update --init```
 * Add an entry in your /etc/hosts file: ```192.168.33.10 www.totsy.local totsy.local```
+* Install vagrant mirror following the instructions on its [Readme](https://github.com/ingenerator/vagrant-mirror/#vagrantmirror)
 * After running ```vagrant up``` the box is set up using Puppet
 * You should now have your working Totsy dev environment under http://www.totsy.local
 * Admin is located at http://www.totsy.local/admin. User: admin, Pass: admin

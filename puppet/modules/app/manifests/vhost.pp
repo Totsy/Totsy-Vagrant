@@ -19,7 +19,7 @@ define app::vhost ($site = $title, $options = {}, $port = 80) {
 
     cron { 'magento':
       ensure  => $cronensure,
-      command => "/usr/bin/php /var/www/$servername/current/cron.php >>/tmp/magentocron.log 2>&1",
+      command => "/usr/bin/php /vagrant-mirror/www/Totsy-Magento/cron.php >>/tmp/magentocron.log 2>&1",
       user    => 'nginx',
       hour    => '*',
       minute  => '*',
@@ -28,7 +28,7 @@ define app::vhost ($site = $title, $options = {}, $port = 80) {
 
     cron { 'sailthruqueue':
       ensure  => $cronensure,
-      command => "/usr/bin/php /var/www/$servername/current/dev/queue.php",
+      command => "/usr/bin/php /vagrant-mirror/www/Totsy-Magento/dev/queue.php",
       user    => 'nginx',
       hour    => '*',
       minute  => '*/5',
@@ -66,7 +66,7 @@ define app::vhost ($site = $title, $options = {}, $port = 80) {
       target  => "/etc/nginx/sites-available/$site",
       require => File["/etc/nginx/sites-available/$site"];
 
-    "/var/www/$servername":
+    "/vagrant-mirror/www/Totsy-Magento":
       ensure  => directory,
       group   => 'nginx',
       mode    => '0755',

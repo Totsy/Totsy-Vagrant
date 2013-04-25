@@ -1,4 +1,3 @@
-Defaults    requiretty
 Defaults   !visiblepw
 Defaults    env_reset
 Defaults    env_keep = "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR \
@@ -10,4 +9,4 @@ Defaults    env_keep = "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR \
 
 root	ALL=(ALL) 	ALL
 %superadmins	ALL=(ALL)	ALL
-#%superadmins	ALL=(ALL)	NOPASSWD: ALL
+vagrant	ALL=(ALL)	NOPASSWD: ALL

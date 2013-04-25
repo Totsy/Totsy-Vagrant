@@ -114,7 +114,16 @@ class app {
     require => File[$sitedirs]
   }
 
-  file { '/vagrant-www/Totsy-Magento/app/etc/local.xml':
+  file { '/etc/magento/litle_SDK_config.ini':
+    source  => 'puppet:///modules/app/litle_SDK_config.ini',
+    owner   => 'nobody',
+    group   => 'nobody',
+    mode    => '664',
+    require => File[$sitedirs]
+  }
+
+
+  file { '/vagrant/www/Totsy-Magento/app/etc/local.xml':
     content => template('app/local.xml.erb'),
     owner   => 'nobody',
     group   => 'nobody',
@@ -135,6 +144,14 @@ class app {
     owner   => 'nobody',
     group   => 'nobody',
     mode    => '664',
+    require => File[$sitedirs]
+  }
+
+  file { '/vagrant-mirror/www/Totsy-Magento/app/code/community/Litle/LitleSDK/litle_SDK_config.ini':
+    source  => 'puppet:///modules/app/litle_SDK_config.ini',
+    owner   => 'nobody',
+    group   => 'nobody',
+    mode    => '775',
     require => File[$sitedirs]
   }
 
@@ -186,7 +203,7 @@ class app {
   
   exec { "git reset --hard HEAD":
     path     => "/usr/bin:/bin",
-    cwd      => "/vagrant-www/Totsy-Magento",
+    cwd      => "/vagrant/www/Totsy-Magento",
     require  => [Package[git],Exec["extract magento"]]
   }
 }

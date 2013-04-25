@@ -45,7 +45,8 @@ class database ($environment = 'dev') {
   } 
 
   exec { 'reset-mage-inventory':
-    command => "cp /vagrant/www/mage_shell_reset_inventory.php /vagrant-www/Totsy-Magento/shell/; cd /vagrant-www/Totsy-Magento/shell/; php /vagrant-www/Totsy-Magento/shell/mage_shell_reset_inventory.php --quiet runall; rm /vagrant-www/Totsy-Magento/shell/mage_shell_reset_inventory.php",
+    command => "/bin/cp /vagrant/www/mage_shell_reset_inventory.php /vagrant/www/Totsy-Magento/shell/; cd /vagrant/www/Totsy-Magento/shell/; /usr/bin/php /vagrant/www/Totsy-Magento/shell/mage_shell_reset_inventory.php runall; /bin/rm /vagrant/www/Totsy-Magento/shell/mage_shell_reset_inventory.php",
+    require => File['/var/lib/mysql'],
     path => '/bin;/usr/bin'
   }
 }

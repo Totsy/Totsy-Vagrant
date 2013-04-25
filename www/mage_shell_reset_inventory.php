@@ -146,17 +146,15 @@ class Totsy_Shell_Dev_Inventory extends Mage_Shell_Abstract
     }
 
     private function rebuildCategorySortentry() {
+        $sql = 'truncate categoryevent_sortentry';
+
+        Mage::getSingleton('core/resource')->getConnection('core/write')->query($sql);
+
         $storeId = Mage_Core_Model_App::ADMIN_STORE_ID;
 
-        $sortentry = Mage::getModel('categoryevent/sortentry')->loadCurrent($storeId);
-
-        if ($sortentry->getId()) {
-            $this->log("Rebuilding most recent sortentry...");
-            $sortentry->rebuild();
-            $this->log("Done.\n\n");
-        } else {
-            $this->log("Could not load sortentry.\n\n");
-        }
+        $this->log("Rebuilding most recent sortentry...");
+        $sortentry = Mage::getModel('categoryevent/sortentry')->loadCurrent($storeId)->rebuild()->save();
+        $this->log("Done.\n\n");
     }
 
     private function log($msg) {
@@ -189,3 +187,4 @@ USAGE;
 
 $shell = new Totsy_Shell_Dev_Inventory();
 $shell->run();
+
