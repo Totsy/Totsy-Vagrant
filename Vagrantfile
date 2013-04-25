@@ -30,4 +30,5 @@ Vagrant::Config.run do |config|
   
   # To mirror the vagrant root path
   config.mirror.vagrant_root "/vagrant-mirror"
+  Vagrant.actions[:start].insert Vagrant::Action::VM::Provision, Vagrant::Mirror::Middleware::Sync
 end
