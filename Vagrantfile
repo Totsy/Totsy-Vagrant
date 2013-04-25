@@ -7,7 +7,7 @@ Vagrant::Config.run do |config|
   config.ssh.timeout = 300
   # VM is headless. Uncomment for dispaly.
   # config.vm.boot_mode = :gui
-  config.vm.customize ["modifyvm", :id, "--memory", 6144]
+  config.vm.customize ["modifyvm", :id, "--memory", 2048]
 
   #config.vm.host_name = "www.totsy.local"
   config.vm.network :hostonly, "192.168.33.10"
