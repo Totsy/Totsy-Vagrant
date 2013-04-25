@@ -5,7 +5,7 @@ Installation
 ------------
 
 * Install vagrant using the installation instructions in the [Getting Started document](http://vagrantup.com/v1/docs/getting-started/index.html)
-* Add a CentOS 6 box using this [recommended box](http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.3-x86_64-v20130101.box), for example: ```vagrant box add centos http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.3-x86_64-v20130101.box``` (make sure it's named centos)
+* Add a CentOS 6 box using this [recommended box](http://chris.totsy.com/centos.box), for example: ```vagrant box add centos http://chris.totsy.com/centos.box``` (make sure it's named centos)
 * Clone this repository
 * Install submodules with ```git submodule update --init```
 * Add an entry in your /etc/hosts file: ```192.168.33.10 www.totsy.local totsy.local```
