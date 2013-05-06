@@ -5,7 +5,7 @@ Installation
 ------------
 
 * Install vagrant using the installation instructions in the [Getting Started document](http://vagrantup.com/v1/docs/getting-started/index.html)
-* Add a CentOS 6 box using this [recommended box](http://totsy:d3v@chris.totsy.com/centos.box), for example: ```vagrant box add centos http://totsy:d3v@chris.totsy.com/centos.box``` (make sure it's named centos)
+* Add a CentOS 6 box using this [recommended box](http://totsy:d3v@chris.totsy.com/totsy.box), for example: ```vagrant box add totsy http://totsy:d3v@chris.totsy.com/totsy.box``` (make sure it's named totsy)
 * Clone this repository
 * Install submodules with ```git submodule update --init```
 * Add an entry in your /etc/hosts file: ```192.168.33.10 www.totsy.local totsy.local```
@@ -17,14 +17,6 @@ Installation
 
 Hints
 -----
-
-**Startup speed**
-
-To speed up the startup process use
-
-    $ vagrant up --no-provision
-
-after the first run. It just starts the virtual machine without provisioning of the recipes.
 
 **Clearing out an instance**
 

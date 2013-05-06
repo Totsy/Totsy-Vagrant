@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant::Config.run do |config|
-  config.vm.box = "centos"
+  config.vm.box = "totsy"
 
   config.ssh.timeout = 300
   # VM is headless. Uncomment for dispaly.

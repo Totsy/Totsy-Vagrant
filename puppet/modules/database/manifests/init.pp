@@ -1,12 +1,11 @@
 # module: database
 
 class database ($environment = 'dev') {
-  package { 'Percona-Server-server-55': ensure  => latest }
-  package { 'Percona-Server-client-55': ensure  => latest }
+
 
   service { 'mysql':
     ensure => running,
-    require => Package['Percona-Server-server-55']
+    require => File['/etc/my.cnf']
   }
 
   file { '/etc/my.cnf':
@@ -15,8 +14,8 @@ class database ($environment = 'dev') {
     group   => 'mysql',
     mode    => '644',
     notify  => Service['mysql'],
-    require => Package['Percona-Server-server-55']
   }
+
   
   $nc = "/usr/bin/mysqladmin status"
 
@@ -24,7 +23,7 @@ class database ($environment = 'dev') {
     command     => "while ! ${nc}; do sleep 1; done",
     provider    => shell,
     timeout     => 30,
-      require => [Package['Percona-Server-server-55'],Service['mysql'],File['/etc/my.cnf']]
+      require => [Service['mysql'],File['/etc/my.cnf']]
   }
 
   exec {

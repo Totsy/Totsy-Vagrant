@@ -14,7 +14,6 @@ class web {
     group   => 'nginx',
     mode    => '604',
     notify  => Service['nginx'],
-    require => Package['nginx']
   }
 
   file { '/etc/nginx/conf.d/default.conf':
@@ -23,7 +22,6 @@ class web {
     group   => 'nginx',
     mode    => '604',
     notify  => Service['nginx'],
-    require => Package['nginx']
   }
 
   service { 'nginx':

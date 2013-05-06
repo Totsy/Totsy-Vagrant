@@ -47,9 +47,6 @@ class system {
 
   # Some core services
 
-  package { 'rsyslog':
-    ensure => '5.8.10-6.el6'
-  }
   file { "/etc/rsyslog.conf":
     content => template("system/rsyslog.conf.erb"),
     ensure  => present,
@@ -80,51 +77,25 @@ class system {
     subscribe  => File['/etc/ssh/sshd_config'],
   }
 
-  package { 'cronie':
-    ensure => latest
-  }
-
   service { 'crond':
     ensure     => 'running',
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => Package['cronie']
   }
 
-  package { 'ntp':
-    ensure => latest
-  }
   service { 'ntpd':
     ensure     => running,
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => Package['ntp'],
   }
 
-  package { 'acpid':
-    ensure => latest
-  }
   service { 'acpid':
     ensure     => running,
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => Package['acpid'],
-  }
-
-  package { 'sudo':        ensure => latest }
-  package { 'rsync':       ensure => latest }
-  package { 'tar':         ensure => latest }
-  package { 'ruby-shadow': ensure => latest }
-
-  yumrepo { 'totsyrepo':
-    baseurl  => 'http://repo.totsy.com/6/x86_64/',
-    name     => 'totsy',
-    descr    => 'Totsy Repository',
-    enabled  => 1,
-    gpgcheck => 0
   }
 
 }
